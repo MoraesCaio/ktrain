@@ -146,6 +146,7 @@ class LRFinder:
         plt.xlabel("learning rate (log scale)")
         ax.plot(self.lrs[n_skip_beginning:-n_skip_end], self.losses[n_skip_beginning:-n_skip_end])
         plt.xscale('log')
+        plt.show()
         return
 
         
