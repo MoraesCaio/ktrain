@@ -13,6 +13,8 @@ from .text.ner.predictor import NERPredictor
 from .text.ner.preprocessor import NERPreprocessor
 from .graph.predictor import NodePredictor
 from .graph.preprocessor import NodePreprocessor
+from keras.engine.sequential import Sequential as KS
+from tensorflow.python.keras.engine.training import Model as TM
 
 
 class Learner(ABC):
@@ -22,8 +24,8 @@ class Learner(ABC):
 
     """
     def __init__(self, model, workers=1, use_multiprocessing=False, multigpu=False):
-        if not isinstance(model, Model):
-            raise ValueError('model must be of instance Model')
+        if not isinstance(model, TM) and not isinstance(model, KS):
+            raise ValueError('model must be of instance of either "keras.engine.sequential.Sequential" or "tensorflow.python.keras.engine.training.Model"')
         self.model = model
         self.lr_finder = LRFinder(self.model)
         self.workers = workers

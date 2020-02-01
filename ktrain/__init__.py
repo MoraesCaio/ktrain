@@ -6,8 +6,9 @@ from .text.learner import BERTTextClassLearner, TransformerTextClassLearner
 from .text.ner.learner import NERLearner
 from .graph.learner import NodeClassLearner
 from .data import Dataset
-
 from . import utils as U
+from keras.engine.sequential import Sequential as KS
+from tensorflow.python.keras.engine.training import Model as TM
 
 __all__ = ['get_learner', 'get_predictor', 'load_predictor', 'release_gpu_memory',
            'Dataset']
@@ -42,8 +43,9 @@ def get_learner(model, train_data=None, val_data=None,
     """
 
     # check arguments
-    if not isinstance(model, Model):
-        raise ValueError('model must be of instance Model')
+    print(type(model), Model)
+    if not isinstance(model, TM) and not isinstance(model, KS):
+        raise ValueError('model must be of instance of either "keras.engine.sequential.Sequential" or "tensorflow.python.keras.engine.training.Model"')
     U.data_arg_check(train_data=train_data, val_data=val_data)
     if type(workers) != type(1) or workers < 1:
         workers =1
