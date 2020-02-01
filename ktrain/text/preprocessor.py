@@ -654,7 +654,7 @@ class TFIDFTextPreprocessor(StandardTextPreprocessor):
         U.vprint('Nrows: {}'.format(len(train_text)), verbose=verbose)
 
         # convert to word IDs
-        x_train = self.tok.texts_to_matrix(train_text, mode='tfidf')
+        x_train = self.tok.texts_to_matrix(test_text, mode='tfidf')
         U.vprint('{} train sequences'.format(len(x_train)), verbose=verbose)
         U.vprint('Average train sequence length: {}'.format(np.mean(list(map(len, x_train)), dtype=int)), verbose=verbose)
 
